@@ -1,0 +1,53 @@
+class Node:
+  def __init__(self, value, L, R):
+    self.value = value
+    self.L = L
+    self.R = R
+
+def initNode(value):
+  return Node(value, None, None)
+
+def insert(tree, node):
+  if node.value > tree.value and tree.R is None:
+    tree.R = node
+  elif node.value < tree.value and tree.L is None:
+    tree.L = node
+  elif node.value > tree.value and tree.R is not None:
+    insert(tree.R, node)
+  elif node.value < tree.value and tree.L is not None:
+    insert(tree.L, node)
+
+def _display(root, child):
+  current_level = [root, child, child]
+  while current_level:
+    print(' '.join(str(node.value) for node in current_level))
+    next_level = list()
+    r_child = list()
+    l_child = list()
+    for n in current_level:
+        if n.L:
+          next_level.append(n.L)
+        if n.R:
+          next_level.append(n.R)
+        current_level = next_level
+
+# Insert nodes in tree
+tree = initNode(10)
+insert(tree, initNode(5))
+insert(tree, initNode(2))
+insert(tree, initNode(3))
+insert(tree, initNode(15))
+insert(tree, initNode(20))
+insert(tree, initNode(25))
+
+
+# Print node values
+#print(tree.value)
+#print(tree.L.value)
+#print(tree.L.L.value)
+
+#print(tree.R.value)
+#print(tree.R.R.value)
+#print(tree.R.R.R.value)
+
+_display(tree)
